@@ -1,0 +1,164 @@
+{
+    "n_gpu": 1,
+    "root_dir": "./",
+    "name": "acoustic_footstep_ide",
+    
+    "wandb": {
+        "project": "AFPID-II",
+        "notes": "AFPI-Net.",
+        "entity": "Release_v1.0"
+    },
+
+    "datasets": {
+        "train": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "MultiModalAugmentationDataset",
+                "kwargs": {
+                    "data_dir": "/home/nai2/acoustic_footstep/AFPID/AFPID_FE1/AFPID_FE1_train_rd.csv",
+                    "wave_cache_dir": "waveform/",
+                    "hand_cache_dir": "handcraft/",
+                    "spec_cache_dir": "spectrogram/",
+                    "w_shift": true,
+                    "h_shift": true,
+                    "s_shift": true
+                }
+            }
+        },
+        "valid": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "MultiModalAugmentationDataset",
+                "kwargs": {
+                    "data_dir": "/home/nai2/acoustic_footstep/AFPID/AFPID_FE1/AFPID_FE1_train_rd.csv",
+                    "wave_cache_dir": "waveform/",
+                    "hand_cache_dir": "handcraft/",
+                    "spec_cache_dir": "spectrogram/"
+                }
+            }
+        },
+        "test": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "MultiModalAugmentationDataset",
+                "kwargs": {
+                    "data_dir": "/home/nai2/acoustic_footstep/AFPID/AFPID_FE1/AFPID_FE1_test_rd.csv",
+                    "wave_cache_dir": "waveform/",
+                    "hand_cache_dir": "handcraft/",
+                    "spec_cache_dir": "spectrogram/"
+                }
+            }
+        }
+    },
+
+    "data_loaders": {
+        "train": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "BaseDataLoader",
+                "kwargs": {
+                    "validation_split": 0.3,
+                    "DataLoader_kwargs": {
+                        "batch_size": 32,
+                        "shuffle": true,
+                        "num_workers": 4
+                    }
+                }
+            }
+        },
+        "valid": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "BaseDataLoader",
+                "kwargs": {
+                    "validation_split": 0.0,
+                    "DataLoader_kwargs": {
+                        "batch_size": 32,
+                        "shuffle": false,
+                        "num_workers": 4
+                    }
+                }
+            }
+        },
+        "test": {
+            "data": {
+                "module": ".afpid_dataset",
+                "type": "BaseDataLoader",
+                "kwargs": {
+                    "validation_split": 0.0,
+                    "DataLoader_kwargs": {
+                        "batch_size": 32,
+                        "shuffle": false,
+                        "num_workers": 4
+                    }
+                }
+            }
+        }
+    },
+
+    "models": {
+        "model": {
+            "module": ".model",
+            "type": "AFPINetMultiModalFusionClassifier",
+            "kwargs": {
+                "input_length": 11200,
+                "n_bins": 64,
+                "n_frames": 70,
+                "num_classes": 13,
+                "fusion_method": "sum",
+                "parameterization": "sinc",
+                "non_linearity": "LeakyReLU"
+            }
+        }
+    },
+
+    "losses": {
+        "loss": {
+            "type": "CrossEntropyLoss"
+        }
+    },
+
+    "metrics": {
+        "per_iteration": [],
+        "per_epoch": ["accuracy"]
+    },
+
+    "optimizers": {
+        "model": {
+            "type": "SGD",
+            "kwargs": {
+                "lr": 0.0001,
+                "momentum": 0.9
+            }
+        }
+    },
+
+    "lr_schedulers": {
+
+    },
+
+    "trainer": {
+        "module": ".trainer",
+        "type": "AFPINetTrainer",
+        "kwargs": {
+            "finetune": false,
+            "epochs": 60,
+            "len_epoch": null,
+            
+            "find_lr": true,
+            "max_lr": 0,
+            
+            "mixup": false,
+            "mixup_p": 0.5,
+
+            "save_period": 10,
+            "save_the_best": true,
+            "verbosity": 2,
+
+            "monitor": "min val_loss",
+            "early_stop": 3,
+
+            "tensorboard": true
+        }
+    }
+}
