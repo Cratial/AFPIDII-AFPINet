@@ -69,14 +69,14 @@ Download the [AFPID-II dataset](https://drive.google.com/file/d/1oiIam9BQ6gAA-zK
 ## Results 
 
 <p align="center">
-    <img src="figures/table_person_ide_afpid_rd_rk.png" width="50%" /> <br/>
+    <img src="figures/table_person_ide_afpid_rd_rk.png" width="90%" /> <br/>
     <em> 
     Figure 1:Person identification scores on AFPID_RK and AFPID_RD (%).
     </em>
 </p>
 
 <p align="center">
-    <img src="figures/table_person_ide_afpid_ii_mul_cova.png" width="50%" /> <br/>
+    <img src="figures/table_person_ide_afpid_ii_mul_cova.png" width="90%" /> <br/>
     <em> 
     Figure 2: Person classification results on AFPID-II concerning multiple covariates.
     </em>
