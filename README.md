@@ -1,6 +1,6 @@
 # Advanced acoustic footstep-based person identification dataset and method using multimodal feature fusion
 
-This is a PyTorch implementation of our underview [manuscript]().
+This is a PyTorch implementation of our [paper](https://www.sciencedirect.com/science/article/pii/S0950705123000813) published in KBS.
 
 **AFPID-II:** Improved Acoustic Footstep-based Person Identification Dataset.
 **AFPI-Net:** Acoustic Footstep based Person Identification Network.
